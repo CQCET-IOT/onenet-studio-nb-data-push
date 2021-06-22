@@ -1,5 +1,6 @@
 package com.onenet.datapush.receiver;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,8 +28,8 @@ import java.security.NoSuchAlgorithmException;
 @EnableAutoConfiguration
 public class ReceiverDemo {
 
-    private static String token ="5ec78dbca0db5a7e49b603fe";//用户自定义token和OneNet第三方平台配置里的token一致
-    private static String aeskey ="AAlvB3jc2dlPq2nF";//aeskey和OneNet第三方平台配置里的AesKey一致
+    private static String token ="111";//用户自定义token和OneNet第三方平台配置里的token一致
+    private static String aeskey ="";//aeskey和OneNet第三方平台配置里的AesKey一致
 
     private static Logger logger = LoggerFactory.getLogger(ReceiverDemo.class);
     /**
@@ -55,6 +56,33 @@ public class ReceiverDemo {
             boolean dataRight = Util.checkSignature(obj, token);
             if (dataRight){
                 logger.info("data receive: content" + obj.toString());
+
+                /* 解析光照度，根据光照度的值调用LED控制API */
+                try {
+                    JSONObject object = new JSONObject(obj.toString());
+                    JSONObject msg = object.getJSONObject("msg");
+                    if (msg != null) {
+                        JSONObject data = msg.getJSONObject("data");
+                        if (data != null) {
+                            JSONObject params = data.getJSONObject("params");
+                            if (params != null) {
+                                JSONObject illuminance = params.getJSONObject("3301_0_5700");
+                                if (illuminance != null) {
+                                    float value = illuminance.getFloat("value");
+                                    logger.info("Get illuminance: " + value);
+                                    if (value >= 100) {
+                                        // 调用写资源API打开LED灯
+
+                                    } else if (value <= 50) {
+                                        // 调用写资源API关闭LED灯
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex) {
+                }
             }else {
                 logger.info("data receive: signature error");
             }
