@@ -1,6 +1,7 @@
 package com.onenet.datapush.receiver.controller;
 
 import com.onenet.datapush.receiver.ReceiverDemo;
+import com.onenet.datapush.receiver.config.Config;
 import com.onenet.datapush.receiver.domain.Light;
 import com.onenet.datapush.receiver.utils.Util;
 import org.json.JSONObject;
@@ -65,10 +66,10 @@ public class LightController {
                                 if (illuminance != null) {
                                     float value = illuminance.getFloat("value");
                                     logger.info("Get illuminance: " + value);
-                                    if (value >= 100) {
+                                    if (value > Config.getMaxValue()) {
                                         // 调用写资源API打开LED灯
                                         light.TurnOn();
-                                    } else if (value <= 50) {
+                                    } else if (value < Config.getMinValue()) {
                                         // 调用写资源API关闭LED灯
                                         light.TurnOff();
                                     }

@@ -10,6 +10,8 @@ public class Config {
     public static String domainName;
     public static String authorization;
     public static String imei;
+    public static float maxValue;
+    public static float minValue;
 
     static {
         Properties properties = new Properties();
@@ -18,6 +20,8 @@ public class Config {
             domainName = (String)properties.get("domainName");
             authorization = (String)properties.get("authorization");
             imei = (String)properties.get("imei");
+            maxValue = (float)properties.get("maxValue");
+            minValue = (float)properties.get("minValue");
         } catch (IOException e) {
             throw new OnenetNBException(NBStatus.LOAD_CONFIG_ERROR);
         }
@@ -33,5 +37,13 @@ public class Config {
 
     public static String getImei() {
         return imei;
+    }
+
+    public static float getMaxValue() {
+        return maxValue;
+    }
+
+    public static float getMinValue() {
+        return minValue;
     }
 }
