@@ -1,0 +1,25 @@
+package com.onenet.datapush.receiver.exception;
+
+public class OnenetNBException extends RuntimeException {
+
+    private NBStatus status;
+    private String message = null;
+    public OnenetNBException(NBStatus status) {
+        this.status = status;
+    }
+    public OnenetNBException(NBStatus status, String message) {
+        this.status = status;
+        this.message = message;
+    }
+    public int getErrorNo() {
+        return status.getErrorNo();
+    }
+
+    public String getError() {
+        if (message != null) {
+            return status.getError() + ": " + message;
+        } else {
+            return status.getError();
+        }
+    }
+}

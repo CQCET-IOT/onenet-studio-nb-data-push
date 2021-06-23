@@ -1,4 +1,4 @@
-package com.onenet.datapush.receiver;
+package com.onenet.datapush.receiver.utils;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.json.JSONObject;
