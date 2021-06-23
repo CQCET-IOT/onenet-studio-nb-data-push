@@ -1,7 +1,5 @@
 package com.onenet.datapush.receiver.utils;
 
-import com.onenet.datapush.receiver.exception.NBStatus;
-import com.onenet.datapush.receiver.exception.OnenetNBException;
 import okhttp3.*;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -70,24 +68,6 @@ public final class HttpSendCenter {
         handleAsyncRequest(request, callback);
     }
 
-    public static JSONObject put(String authorization, String url) {
-
-        return null;
-    }
-
-    public static void putAsync(String authorization, String url, JSONObject body, Callback callback) {
-
-    }
-
-    public static JSONObject delete(String authorization, String url) {
-
-        return null;
-    }
-
-    public static void deleteAsync(String authorization, String url, Callback callback) {
-
-    }
-
     private static void handleAsyncRequest(Request request, Callback callback) {
         httpClient.newCall(request).enqueue(callback);
     }
@@ -98,13 +78,11 @@ public final class HttpSendCenter {
             if (response != null) {
                 String st = new String(response.body().bytes(), "utf-8");
                 return new JSONObject(st);
-            }else {
-                throw new OnenetNBException(NBStatus.HTTP_REQUEST_ERROR);
             }
         } catch (IOException e) {
             LOGGER.info("http request error::{}", e.getMessage());
-            throw new OnenetNBException(NBStatus.HTTP_REQUEST_ERROR);
         }
+        return null;
     }
 }
 

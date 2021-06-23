@@ -1,46 +1,96 @@
 package com.onenet.datapush.receiver.domain;
 
-import com.onenet.datapush.receiver.api.online.WriteOpe;
-import com.onenet.datapush.receiver.config.Config;
-import com.onenet.datapush.receiver.entity.Write;
+import com.onenet.datapush.receiver.utils.HttpSendCenter;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Light {
+    @Value("${api.domain}")
+    String domain;
+    @Value("${api.authorization}")
+    String authorization;
+    @Value("${light.imei}")
+    String imei;
+    @Value("${light.objId}")
+    Integer objId;
+    @Value("${light.objInstId}")
+    Integer objInstId;
+    @Value("${light.writeResId}")
+    Integer writeResId;
+    @Value("${light.writeMode}")
+    Integer writeMode;
+    @Value("${threshold.max}")
+    float thresholdMax;
+    @Value("${threshold.min}")
+    float thresholdMin;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(Light.class);
 
-    public void Switch(boolean command) {
-        Integer objId = 3311;
-        Integer objInstId = 0;
-        Integer writeResId = 5850;
-        Integer writeMode = 1;
+    /**
+     * 开灯或者关灯
+     * @param command 命令. true-开; false-关
+     */
+    public void switchLight(boolean command) {
+        String url = getApiUrl();
+        JSONObject body = getApiBody(command);
+        HttpSendCenter.post(this.authorization, url, body);
+    }
 
-        String authorization = Config.getAuthorization();
-        String imei = Config.getImei();
+    /**
+     * 开灯
+     */
+    public void turnOn() {
+        switchLight(true);
+    }
 
-        // Write Resource
-        WriteOpe writeOpe = new WriteOpe(authorization);
-        Write write = new Write(imei, objId, objInstId, writeMode);
+    /**
+     * 关灯
+     */
+    public void turnOff() {
+        switchLight(false);
+    }
+
+    /**
+     * 构造"即时命令-写设备资源"的URL
+     * https://open.iot.10086.cn/doc/iot_platform/book/api/LwM2M-IPSO/Real-API/5rt-write-device-resources.html
+     * @return URL
+     */
+    public String getApiUrl() {
+        StringBuilder url = new StringBuilder(this.domain);
+        url.append("/lwm2m-online?action=write&imei=").append(this.imei);
+        url.append("&obj_id=").append(this.objId);
+        url.append("&obj_inst_id=").append(this.objInstId);
+        url.append("&mode=").append(this.writeMode);
+        return url.toString();
+    }
+
+    /**
+     * 构造"即时命令-写设备资源"的Body
+     * @param command 命令. true-开; false-关
+     * @return Body
+     */
+    public JSONObject getApiBody(boolean command) {
         JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("res_id", writeResId);
         jsonObject.put("val", command);
         jsonArray.put(jsonObject);
-        JSONObject data = new JSONObject();
-        data.put("data", jsonArray);
-        LOGGER.info(writeOpe.operation(write, data).toString());
+        JSONObject body = new JSONObject();
+        body.put("data", jsonArray);
+        return body;
     }
 
-    public void TurnOn() {
-        Switch(true);
+    public float getThresholdMax() {
+        return this.thresholdMax;
     }
 
-    public void TurnOff() {
-        Switch(false);
+    public float getThresholdMin() {
+        return this.thresholdMin;
     }
 }
 
