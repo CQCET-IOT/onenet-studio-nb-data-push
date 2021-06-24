@@ -55,7 +55,7 @@ public class LightController {
                 /* 解析光照度，根据光照度的值调用LED控制API */
                 try {
                     JSONObject object = new JSONObject(obj.toString());
-                    JSONObject illumi = getIllminance(object);
+                    JSONObject illumi = getIlluminance(object);
                     if (illumi != null) {
                         float value = illumi.getFloat("value");
                         logger.info("illuminance value: " + value);
@@ -121,7 +121,6 @@ public class LightController {
         } else {
             return "error";
         }
-
     }
 
     /**
@@ -129,7 +128,7 @@ public class LightController {
      * @param object
      * @return
      */
-    public JSONObject getIllminance(JSONObject object) {
+    public JSONObject getIlluminance(JSONObject object) {
         try {
             JSONObject msg = object.getJSONObject("msg");
             if (msg != null) {
