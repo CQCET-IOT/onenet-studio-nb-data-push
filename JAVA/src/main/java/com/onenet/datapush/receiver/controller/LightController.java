@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.crypto.BadPaddingException;
@@ -22,8 +23,10 @@ public class LightController {
     @Autowired
     Light light;
 
-    private static String token ="111";//用户自定义token和OneNet第三方平台配置里的token一致
-    private static String aeskey ="";//aeskey和OneNet第三方平台配置里的AesKey一致
+    @Value("${http-push.token}")
+    private String token;
+    @Value("${http-push.aesKey}")
+    private String aeskey;
 
     private static Logger logger = LoggerFactory.getLogger(ReceiverDemo.class);
     /**

@@ -11,23 +11,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class Light {
     @Value("${api.domain}")
-    String domain;
+    private String domain;
     @Value("${api.authorization}")
-    String authorization;
+    private String authorization;
     @Value("${light.imei}")
-    String imei;
+    private String imei;
     @Value("${light.objId}")
-    Integer objId;
+    private Integer objId;
     @Value("${light.objInstId}")
-    Integer objInstId;
+    private Integer objInstId;
     @Value("${light.writeResId}")
-    Integer writeResId;
+    private Integer writeResId;
     @Value("${light.writeMode}")
-    Integer writeMode;
-    @Value("${threshold.max}")
-    float thresholdMax;
-    @Value("${threshold.min}")
-    float thresholdMin;
+    private Integer writeMode;
+    @Value("${illumi-threshold.max}")
+    private float thresholdMax;
+    @Value("${illumi-threshold.min}")
+    private float thresholdMin;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Light.class);
 
