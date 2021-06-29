@@ -82,7 +82,7 @@ Maven 下载的依赖包会保存到本地，可以手动指定一个目录以�
 
 使用工具包中提供的 IntelliJ IDEA 2019 安装包，进行默认安装。在启动界面选择 "Configure->Settings"，搜索 `maven`，然后将 Maven 的实际安装路径填入，以便在 IDEA 中使用 Maven。
 
-<center>![image_1f9apgr2e2lppi11e704me1oee9.png-220.9kB][1]</center>
+![IDEA-Maven-Config](https://github.com/CQCET-IOT/onenet-studio-nb-data-push/blob/main/image/IDEA-Maven-Config.png)
 
 ## 运行程序
 
@@ -92,7 +92,7 @@ Maven 下载的依赖包会保存到本地，可以手动指定一个目录以�
 
 打开 *JAVA\src\main\java\com\onenet\datapush\receiver\ReceiverDemo.java* 文件，点击绿色三角，则可以运行本程序。
 
-<center>![image_1f9aq3gafr8n1cqddop1d0imn4m.png-257.3kB][2]</center>
+![Run-Application](https://github.com/CQCET-IOT/onenet-studio-nb-data-push/blob/main/image/Run-Application.png)
 
 程序启动后，默认会监听 *127.0.0.1:9999* 地址，这是一个内网地址，此时 OneNET Studio 还无法主动从外网访问该地址，因此也无法进行 HTTP 数据推送。
 
@@ -111,7 +111,7 @@ Studio 进行 HTTP 数据推送的前提是，推送地址必须是公网上的�
 
 准备好工具以后，需要将 *127.0.0.1:9999* 映射到公网上，得到其公网地址为 *http://www.xxx.net*，然后在 OneNET Studio 中进行设置。
 
-<center>![image_1f9aqppqn93glsb1s1d1nup1hqg13.png-186.3kB][3]</center>
+![HTTP-Push-Config](https://github.com/CQCET-IOT/onenet-studio-nb-data-push/blob/main/image/HTTP-Push-Config.png)
 
 具体的配置如下：
 
@@ -128,11 +128,11 @@ Studio 进行 HTTP 数据推送的前提是，推送地址必须是公网上的�
 
 在 Studio 上点击“应用开发->项目管理”，新建一个项目，取一个合理的名称，比如“智能灯控项目”：
 
-<center>![image_1f9arf07o4lp1su11jk212nbau91t.png-419.5kB][4]</center>
+![Project-Add](https://github.com/CQCET-IOT/onenet-studio-nb-data-push/blob/main/image/Project-Add.png)
 
 然后进入“项目管理”，创建一个规则引擎。勾选所有的消息源，指定前面创建的 NB-IoT 产品，然后关联前面创建的 HTTP 数据推送。
 
-<center>![image_1f9arin7o16fq1n5kvh21eqj166b2a.png-168.2kB][5]</center>
+![Rule-Engine-Config](https://github.com/CQCET-IOT/onenet-studio-nb-data-push/blob/main/image/Rule-Engine-Config.png)
 
 配置完成后，启动该规则引擎，则当 NB-IoT 设备上下线、上报新数据时，本应用程序就能够获得这些数据，并打印在程序的控制台上。
 
