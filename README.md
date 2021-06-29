@@ -109,7 +109,7 @@ Maven 下载的依赖包会保存到本地，可以手动指定一个目录以�
 
 Studio 进行 HTTP 数据推送的前提是，推送地址必须是公网上的有效地址。一般来说，这需要经过云主机购买、域名购买、备案登记、程序部署等过程，比较复杂。开发过程中为了快速验证程序，往往会采用内网穿透工具，将本机的内网地址映射到公网上。
 
-准备好工具以后，需要将 *127.0.0.1:9999* 映射到公网上，得到其公网地址为 *http://www.xxx.net*，然后在 OneNET Studio 中进行设置。
+准备好工具以后，需要将 *127.0.0.1:9999* 映射到公网上，得到其公网地址为 *http://www.xxx.net* ，然后在 OneNET Studio 中进行设置。
 
 ![HTTP-Push-Config](https://github.com/CQCET-IOT/onenet-studio-nb-data-push/blob/main/image/HTTP-Push-Config.png)
 
