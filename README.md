@@ -116,7 +116,7 @@ Studio 进行 HTTP 数据推送的前提是，推送地址必须是公网上的�
 具体的配置如下：
 
 - 实例名称：自己取一个合理的名称。
-- 推送地址：http://www.xxx.net/receive，注意 URL 后面必须包含 /receive，它是在本应用程序中实现的，用于接收处理 Studio 的验证和数据。
+- 推送地址：http://www.xxx.net/receive ，注意 URL 后面必须包含 /receive，它是在本应用程序中实现的，用于接收处理 Studio 的验证和数据。
 - Token：自己输入一个合理的字符串。该字符串需要与配置文件中的 `http-push.token` 保持一致。
 - 消息加密方式：选择明文模式，本应用程序不进行消息加密。如果选择了加密模式，则需要与配置文件中的 `http-push.aseKey` 保持一致。
 
